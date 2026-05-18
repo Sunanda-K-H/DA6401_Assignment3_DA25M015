@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+
+wandb/
+.wandb/
+
+*.zip
+*.pt
+*.pth
+
+.env
+.venv/
+venv/
+
+.DS_Store
