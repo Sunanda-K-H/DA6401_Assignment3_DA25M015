@@ -6,4 +6,3 @@ wandb
 datasets
 spacy
 tqdm
-gdown
