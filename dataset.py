@@ -18,8 +18,14 @@ class Multi30kDataset:
 
         self.data = load_dataset("bentrevett/multi30k", split=split)  # load split
 
-        self.spacy_de = spacy.load("de_core_news_sm")  # German tokenizer
-        self.spacy_en = spacy.load("en_core_web_sm")  # English tokenizer
+        try:
+            self.spacy_de = spacy.load("de_core_news_sm")  # German tokenizer
+        except OSError:
+            self.spacy_de = spacy.blank("de")  # fallback tokenizer
+        try:
+            self.spacy_en = spacy.load("en_core_web_sm")  # English tokenizer
+        except OSError:
+            self.spacy_en = spacy.blank("en")  # fallback tokenizer
 
         self.unk_token = "<unk>"
         self.pad_token = "<pad>"

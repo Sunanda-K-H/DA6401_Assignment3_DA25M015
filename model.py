@@ -17,11 +17,14 @@ AUTOGRADER CONTRACT (DO NOT MODIFY SIGNATURES):
 import math
 import copy
 import os
+import gdown
 from typing import Optional, Tuple
 
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+
+CHECKPOINT_DRIVE_ID = "1Uv2X_qFSnUxX1BYw5N7TzE_fCd8Ek8fz"
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -514,6 +517,8 @@ class Transformer(nn.Module):
         if src_vocab_size is None or tgt_vocab_size is None:
             default_path = os.path.join(os.path.dirname(__file__), "checkpoint.pt")
             load_path = default_path if os.path.exists(default_path) else "checkpoint.pt"
+            if not os.path.exists(load_path):
+                gdown.download(id=CHECKPOINT_DRIVE_ID, output=load_path, quiet=False)
             checkpoint = torch.load(load_path, map_location="cpu")
             config = checkpoint["model_config"]
             src_vocab_size = config["src_vocab_size"]
@@ -553,6 +558,8 @@ class Transformer(nn.Module):
         self.proj = nn.Linear(d_model, tgt_vocab_size)
 
         if load_path is not None:
+            if not os.path.exists(load_path):
+                gdown.download(id=CHECKPOINT_DRIVE_ID, output=load_path, quiet=False)
             checkpoint = torch.load(load_path, map_location="cpu")
             state_dict = checkpoint["model_state_dict"] if "model_state_dict" in checkpoint else checkpoint
             self.load_state_dict(state_dict)
@@ -567,7 +574,7 @@ class Transformer(nn.Module):
         self.src_vocab = data.src_vocab
         self.tgt_vocab = data.tgt_vocab
         self.tgt_itos = data.tgt_itos
-        self.src_tokenizer = spacy.load("de_core_news_sm")
+        self.src_tokenizer = data.spacy_de
 
     # ── AUTOGRADER HOOKS ── keep these signatures exactly ─────────────
 
