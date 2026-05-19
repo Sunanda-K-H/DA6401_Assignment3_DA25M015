@@ -5,7 +5,7 @@ Roll Number: DA25M015
 Course: DA6401 - Introduction to Deep Learning  
 
 W&B Report Link: TODO  
-GitHub Repository Link: TODO  
+GitHub Repository Link: [https://github.com/Sunanda-K-H/DA6401_Assignment3_DA25M015](https://github.com/Sunanda-K-H/DA6401_Assignment3_DA25M015)  
 
 ## Repository Structure
 
